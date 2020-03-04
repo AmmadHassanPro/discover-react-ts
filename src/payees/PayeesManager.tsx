@@ -1,6 +1,8 @@
 import React , {useEffect, useState} from 'react';
 import PayeesSearch from './PayeesSearch';
 import {dao} from './payees-dao';
+import PayeesList from './PayeesList';
+import { ColumnConfig, Payee } from './payee-types';
 
 
 const PayeesManager = () => {
@@ -26,6 +28,17 @@ const PayeesManager = () => {
 
     }
 
+    const columns: ColumnConfig<Payee>[] = [
+        {
+          field: 'payeeName',
+          label: 'Payee Name'
+        },
+        {
+          field: 'active',
+          label: 'Active'
+        }
+      ]
+
     return (
         <div>
             <h2 className="is-size-4">Payees</h2>
@@ -41,6 +54,8 @@ const PayeesManager = () => {
             }
         */}
             <PayeesSearch searchPayees={handleSearchPayees}/>
+
+            <PayeesList payees={payees} columns={columns}/>
 
         </div>
     )
