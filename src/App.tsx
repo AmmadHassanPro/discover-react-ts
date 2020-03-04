@@ -8,7 +8,7 @@ function App() {
     <>
     {/* Comments like that, but anyways , the below anggular brackets would be used for creating fake tag. It has to be inside the single returned element */}
     
-    <GreeterFunctional company="Discover"/>
+    <GreeterFunctional company="Discover" location="Riverwoods"/>
     <PayeesManager/>
     </>
   );
