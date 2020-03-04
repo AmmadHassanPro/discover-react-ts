@@ -9,9 +9,9 @@ location : string;
 const GreeterFunctional = ({company,location}: GreeterFunctionalProps) =>{
 
     return( // it will return JSX component
-        <section>
-<h1>GreeterFunctional : Hello From {company} at {location}</h1>
-        </section>
+        <div style={{borderBottom: '3px black solid'}}> {/*JSX Specific inline styling. Notice Camel case , it will be replaced with - when it makes to build */}
+            <h1 className="is-size-2" >GreeterFunctional : Hello From {company} at {location}</h1>
+        </div>
 
     )
 
