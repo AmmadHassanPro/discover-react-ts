@@ -23,7 +23,13 @@ const PayeesManager = () => {
     return (
         <div>
             <h2 className="is-size-4">Payees</h2>
-            <p>There are {payees.length} payees.</p>
+            { // Using JS , since only terneray operator is allowed in JSX , that iw hey we avoided if statement
+            //JS code
+                payees.length ? 
+            <p>There are {payees.length} payees.</p> :
+            <p>&nbsp;</p>
+
+            }
             <PayeesSearch searchPayees={handleSearchPayees}/>
 
         </div>
