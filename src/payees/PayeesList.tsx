@@ -17,8 +17,8 @@ const PayeesList = ({ payees, columns }: PayeesListProps) => {
               <tr>
           {
               columns.map(
-                current => (
-               <th key={current.field}> {current.label} </th>
+                ({field,label}) => (
+               <th key={field}> {label} </th>
                )
 
                 

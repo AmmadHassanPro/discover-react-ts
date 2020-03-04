@@ -1,7 +1,7 @@
 import React , {useEffect, useState} from 'react';
 import PayeesSearch from './PayeesSearch';
 import {dao} from './payees-dao';
-import PayeesList from './PayeesList';
+import PayeesList from './PayeesListRefactored';
 import { ColumnConfig, Payee } from './payee-types';
 
 
@@ -44,6 +44,15 @@ const PayeesManager = () => {
           }
       ]
 
+      const handleSelectHeader= ({field,label} : ColumnConfig) => {
+          console.log(`You clicked on the ${label} header`);
+      };
+
+      const handleSelectPayee = (payee : Payee) => {
+
+        console.log(`You clicked on Payee: ${payee.payeeName} , Id : ${payee.id}`);
+      };
+
     return (
         <div>
             <h2 className="is-size-4">Payees</h2>
@@ -60,7 +69,7 @@ const PayeesManager = () => {
         */}
             <PayeesSearch searchPayees={handleSearchPayees}/>
 
-            <PayeesList payees={payees} columns={columns}/>
+            <PayeesList payees={payees} columns={columns} selectHeader={handleSelectHeader} selectPayee={handleSelectPayee} />
 
         </div>
     )
