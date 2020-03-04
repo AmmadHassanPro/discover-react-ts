@@ -5,6 +5,7 @@ import PayeesList from './PayeesList';
 import { ColumnConfig, Payee } from './payee-types';
 
 
+
 const PayeesManager = () => {
     const [payees,setPayees] = useState([]); // since Payyees are going to be an array
   
@@ -28,15 +29,19 @@ const PayeesManager = () => {
 
     }
 
-    const columns: ColumnConfig<Payee>[] = [
+    const columns: ColumnConfig[] = [
         {
           field: 'payeeName',
           label: 'Payee Name'
         },
         {
-          field: 'active',
-          label: 'Active'
-        }
+          field: 'address.city',
+          label: 'City'
+        },
+        {
+            field: 'address.state',
+            label: 'State'
+          }
       ]
 
     return (

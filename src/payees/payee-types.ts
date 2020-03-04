@@ -1,5 +1,7 @@
-export interface ColumnConfig<T>{
-field: keyof T;
+type AddressKeys = 'address.city' | 'address.street' | 'address.state' | 'address.zip';
+type PayeeKeys = keyof Payee | AddressKeys; // So the key could be of Payee or one from Address keys
+export interface ColumnConfig{
+field: string;
 label : string;
 
 }
