@@ -20,9 +20,18 @@ const PayeesManager = () => {
 
     }
 
+    let payeeCount = <p>&nbsp;</p>
+    if(payees.length){
+    payeeCount = <p>There are verifiably {payees.length}  payees.</p>
+
+    }
+
     return (
         <div>
             <h2 className="is-size-4">Payees</h2>
+            {payeeCount}
+
+            {/*
             { // Using JS , since only terneray operator is allowed in JSX , that iw hey we avoided if statement
             //JS code
                 payees.length ? 
@@ -30,6 +39,7 @@ const PayeesManager = () => {
             <p>&nbsp;</p>
 
             }
+        */}
             <PayeesSearch searchPayees={handleSearchPayees}/>
 
         </div>
