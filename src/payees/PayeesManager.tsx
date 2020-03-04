@@ -1,4 +1,5 @@
 import React , {useEffect, useState} from 'react';
+import {Switch,Route,NavLink, Redirect} from 'react-router-dom';
 import PayeesSearch from './PayeesSearch';
 import {dao} from './payees-dao';
 import PayeesList from './PayeesListRefactored';
@@ -57,6 +58,10 @@ const PayeesManager = () => {
         <div>
             <h2 className="is-size-4">Payees</h2>
             {payeeCount}
+            <p>
+            <NavLink to="/payees/search">Search</NavLink>  | {'  '}
+            <NavLink to="/payees/list">Browse</NavLink>
+            </p>
 
             {/*
             { // Using JS , since only terneray operator is allowed in JSX , that iw hey we avoided if statement
@@ -67,9 +72,20 @@ const PayeesManager = () => {
 
             }
         */}
-            <PayeesSearch searchPayees={handleSearchPayees}/>
+        <Switch>
+        <Route path="/payees/search">
+        <PayeesSearch searchPayees={handleSearchPayees}/>
+        </Route>
+        <Route path ="/payees/list">
+        <PayeesList payees={payees} columns={columns} selectHeader={handleSelectHeader} selectPayee={handleSelectPayee} />
+        </Route>
+        <Route path="/payees">
+        <Redirect to="/payees/search" />
+        </Route>
+        </Switch>
+          
 
-            <PayeesList payees={payees} columns={columns} selectHeader={handleSelectHeader} selectPayee={handleSelectPayee} />
+            
 
         </div>
     )
