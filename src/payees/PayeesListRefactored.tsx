@@ -15,7 +15,7 @@ const PayeesList = ({ payees, columns,selectPayee, selectHeader }: PayeesListPro
       <PayeesListHeader columns={columns} selectHeader={selectHeader}  />
       <tbody>
         {payees.map(payee => (
-          <PayeesListRow payee={payee} columns={columns} key={payee.id}/>
+          <PayeesListRow payee={payee} columns={columns} key={payee.id} selectPayee={selectPayee}/>
         ))}
       </tbody>
     </table>
