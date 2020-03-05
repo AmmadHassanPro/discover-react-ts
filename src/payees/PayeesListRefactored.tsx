@@ -8,7 +8,8 @@ interface PayeesListProps {
   selectPayee?: (selectedPayee: Payee) => void;
   selectHeader?: (column: ColumnConfig) => void;
 }
-
+// The below parameter is a representation of properties extracted from the Object PayeesListProps. 
+//It is easy this way, otherwise (.) operator will be utilized
 const PayeesList = ({ payees, columns,selectPayee, selectHeader }: PayeesListProps) => {
   return (
     <table className="table is-striped is-hoverable is-fullwidth">
