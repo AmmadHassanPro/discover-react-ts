@@ -3,6 +3,7 @@ import GreeterFunctional from './GreeterFunctional';
 import GreeterClass from './GreeterClass'; 
 import PayeesManager from './payees/PayeesManager';
 import {BrowserRouter as Router ,Route,Switch ,NavLink} from 'react-router-dom';
+import ReduxCounter from './demos/ReduxCounter';
 
 function App() {
   return (
@@ -15,7 +16,9 @@ function App() {
     <GreeterFunctional company="Discover" location="Riverwoods"/>
     <div>
       <p>
-        <NavLink to="/payees">Payees</NavLink> | <NavLink to="/people">PeopleManager</NavLink>
+      <NavLink to="/payees">Payees</NavLink> | 
+              <NavLink to="/people">People</NavLink> | 
+              <NavLink to="/redux-counter">Redux Counter</NavLink>
       </p>
     </div>
     <Switch>
@@ -25,6 +28,9 @@ function App() {
     <Route path="/people">
     <PeopleManager />
     </Route>
+    <Route path="/redux-counter">
+              <ReduxCounter />
+            </Route>
     </Switch>
     </div>
     </section>

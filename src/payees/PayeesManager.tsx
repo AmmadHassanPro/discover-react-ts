@@ -1,5 +1,5 @@
 import React , {useEffect, useState} from 'react';
-import {Switch,Route,NavLink, Redirect} from 'react-router-dom';
+import {Switch,Route,NavLink, Redirect,useHistory} from 'react-router-dom';
 import PayeesSearch from './PayeesSearch';
 import {dao} from './payees-dao';
 import PayeesList from './PayeesListRefactored';
@@ -9,11 +9,13 @@ import { ColumnConfig, Payee } from './payee-types';
 
 const PayeesManager = () => {
     const [payees,setPayees] = useState([]); // since Payyees are going to be an array
+    const [searchText , setSearchText] = useState('');
+    const history = useHistory();
   
     useEffect(() => {
         dao.getPayees().then(payees =>{
             setPayees(payees);
-            console.log(`There are ${payees.length} payees.`)
+            console.log(`There are ${payees.length} payees.`);
         }
             );
 
@@ -21,7 +23,11 @@ const PayeesManager = () => {
 
     function handleSearchPayees(SearchText : string){
         console.log("PayeesManager : handleSearchPayees",SearchText);
-        
+        setSearchText(SearchText);
+        history.push('/payees/list'); // Preffered way to go from one component to another
+
+
+        /* My Version
         let searchResult = payees.filter(  (currentPayee: Payee) =>  {return currentPayee.payeeName ===  SearchText;});
         let results = (searchResult.length>0) ? searchResult[0]["payeeName"] : false; // using 0 as index, bcuz only one element could be returned?
         if(results){
@@ -31,6 +37,7 @@ const PayeesManager = () => {
         else{
             console.log("Results did not found");
         }
+        */
 
     }
 
@@ -64,6 +71,15 @@ const PayeesManager = () => {
         console.log(`You clicked on Payee: ${payee.payeeName} , Id : ${payee.id}`);
       };
 
+      const displayPayees = payees.filter( (payee : Payee) => {
+        if(searchText === ''){
+            return true;
+        } else{
+            return payee.payeeName.toUpperCase().includes(searchText.toUpperCase());
+        }
+
+      });
+
     return (
         <div>
             <h2 className="is-size-4">Payees</h2>
@@ -87,7 +103,7 @@ const PayeesManager = () => {
         <PayeesSearch searchPayees={handleSearchPayees}/>
         </Route>
         <Route path ="/payees/list">
-        <PayeesList payees={payees} columns={columns} selectHeader={handleSelectHeader} selectPayee={handleSelectPayee} />
+        <PayeesList payees={displayPayees} columns={columns} selectHeader={handleSelectHeader} selectPayee={handleSelectPayee} />
         </Route>
         <Route path="/payees">
         <Redirect to="/payees/search" />
