@@ -19,8 +19,18 @@ const PayeesManager = () => {
 
     },[]);
 
-    function handleSearchPayees(message : string){
-        console.log("PayeesManager : handleSearchPayees",message);
+    function handleSearchPayees(SearchText : string){
+        console.log("PayeesManager : handleSearchPayees",SearchText);
+        
+        let searchResult = payees.filter(  (currentPayee: Payee) =>  {return currentPayee.payeeName ===  SearchText;});
+        let results = (searchResult.length>0) ? searchResult[0]["payeeName"] : false; // using 0 as index, bcuz only one element could be returned?
+        if(results){
+        console.log("Search Results Found:");
+        console.log( results);
+        }
+        else{
+            console.log("Results did not found");
+        }
 
     }
 
