@@ -81,13 +81,14 @@ function Counter({ value, increment, decrement }: CounterProps) {
   });
 
 // Create a higher-order component ready to plug into a store
+// Inversion of control
   const ConnectedCounter = connect(mapStateToProps, mapDispatchToProps)(Counter);
 
   //Use te HOC as a descendant of Provider
 function ReduxCounter() {
   return (
     <Provider store={store}> {/* Provider is imported from react redux, it will provide the store to ConnectedCounter*/}
-      <ConnectedCounter />
+      <ConnectedCounter /> {/* This is basically the Couter function , bcuz it has the same reference , almost!, so any proprs passed from here can be received on Counter Function. */}
     </Provider>
   );
 }
