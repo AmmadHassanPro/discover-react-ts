@@ -65,7 +65,7 @@ function ReduxCounterLocalFunctional() {
     return (
       <div className="card">
         <div className="card-header">
-          <h2 className="card-header-title">Redux Counter</h2>
+          <h2 className="card-header-title">Redux Minimal Counter</h2>
         </div>
         <div className="card-content">
           <p>
