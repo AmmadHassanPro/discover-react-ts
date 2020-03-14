@@ -13,10 +13,14 @@ function ReduxCounterLocalFunctional() {
   const [value , setValue] = useState(0);
 
 
-
+/*
   const initialState = {
     counter: 0,
   };
+  */
+ const initialState = value;
+
+
   //action generators
   const increment = () => (
     store.dispatch ({type: 'INCREMENT'})
@@ -32,21 +36,25 @@ function ReduxCounterLocalFunctional() {
       amount,
     },
   });
+
+  const resteStateAction  = () => ( store.dispatch( {type : "RESET"} ));
   
   //Reducer , the engine of our store
   
-  const reducer = (state = {counter : 0 }, action: AnyAction) => {
+  const reducer = (tempVal : any, action: AnyAction) => {
     switch (action.type) {
       case 'INCREMENT':
-        setValue( value + 1) ; return  {counter : value} ;
+        setValue( value + 1) ; return value; //{counter : value} ;
       case 'DECREMENT':
-        setValue( value - 1) ; return {counter : value};
+        setValue( value - 1) ; return value;//{counter : value};
       case 'ADD':
-        setValue( value + 1) ; return {counter : value} ;
+        setValue( value + 1) ; return value ; //{counter : value} ;
       case 'MULTIPLYBY2':
-        setValue( value * 2) ; return {counter : value};
+        setValue( value * 2) ; return value ; //{counter : value};
+      case 'RESET':
+        setValue(0); return value;
       default:
-        return {counter : value};
+        return value;//{counter : value};
     }
   };
   //Creating the store , giving it a reducer and initial State
@@ -72,6 +80,9 @@ function ReduxCounterLocalFunctional() {
             </button>
             <button className="button" onClick={multiplyBy2}>
               Multiply By 2
+            </button>
+            <button className="button" onClick={resteStateAction}>
+             RESET
             </button>
           </div>
         </div>
