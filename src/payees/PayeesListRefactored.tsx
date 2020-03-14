@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { ColumnConfig, Payee } from './payee-types';
 import * as lodash from 'lodash';
 
@@ -11,6 +11,17 @@ interface PayeesListProps {
 // The below parameter is a representation of properties extracted from the Object PayeesListProps. 
 //It is easy this way, otherwise (.) operator will be utilized
 const PayeesList = ({ payees, columns,selectPayee, selectHeader }: PayeesListProps) => {
+  console.log("List Component being re-rendered");
+    //testing to see if the components re-renders when switcing between Search and List
+
+    useEffect(() => {
+      console.log("List is being mounted");
+      return () => {
+        console.log("List is Un-mounted");
+      };
+    }, [])
+
+
   return (
     <table className="table is-striped is-hoverable is-fullwidth">
       <PayeesListHeader columns={columns} selectHeader={selectHeader}  />

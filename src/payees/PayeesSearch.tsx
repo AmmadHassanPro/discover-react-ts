@@ -13,12 +13,12 @@ const PayeesSearch = (props: PayeeSearchProps) => {
         console.log(`You typed:  ${searchText}`);
     }
     
-    const handleInput = (event : ChangeEvent<HTMLInputElement>) => {
+    const handleInput = (event : any) => {
         setSearchText(event.currentTarget.value);
 
     };
-
-    return (
+    //Read About Form on https://reactjs.org/docs/forms.html , on how to take the input from textbox
+    return (    
         <div>
             <h1>Payees</h1>
             <label htmlFor="searchPayeeName">Payee Name:</label>
