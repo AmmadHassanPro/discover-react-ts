@@ -5,6 +5,7 @@ import PayeesManager from './payees/PayeesManager';
 import {BrowserRouter as Router ,Route,Switch ,NavLink} from 'react-router-dom';
 import ReduxCounter from './demos/ReduxCounter';
 import ReduxCounterToolkit from './demos/ReduxCounterToolKit';
+import ReduxCounterLocalFunctional from './demos/ReduxCounterLocalFunctional';
 
 
 function App() {
@@ -21,7 +22,8 @@ function App() {
       <NavLink to="/payees">Payees</NavLink> | 
               <NavLink to="/people">People</NavLink> | 
               <NavLink to="/redux-counter">Redux Counter</NavLink> |
-              <NavLink to="/redux-counter-toolkit">Redux Counter (Toolkit)</NavLink>
+              <NavLink to="/redux-counter-toolkit">Redux Counter (Toolkit)</NavLink> |
+              <NavLink to="/ICan/Choose/AnyRandom/PathForThis/DosentHavetoBeRealPath">Redux CounterMinimalFunctional</NavLink>
       </p>
     </div>
     <Switch>
@@ -36,7 +38,10 @@ function App() {
     </Route>
     <Route path="/redux-counter-toolkit">
               <ReduxCounterToolkit />
-            </Route>
+    </Route>
+    <Route path="/ICan/Choose/AnyRandom/PathForThis/DosentHavetoBeRealPath" >
+    <ReduxCounterLocalFunctional/>
+    </Route>
     </Switch>
     </div>
     </section>
