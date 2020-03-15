@@ -109,7 +109,7 @@ function Counter({ value, increment, decrement  }: CounterProps) {
 
   const mapResetDispatchToProps = (dispatch : Dispatch) => ({reset: () => dispatch({type: 'RESET'})});
   // The first Paramter is provided as null, bcuz this component does not need to know when a state change is happened ,as this component has nothing to do with State
-  const RestForCounter = connect(null, mapResetDispatchToProps)(CounterForReset);
+  const ResetForCounter = connect(null, mapResetDispatchToProps)(CounterForReset);
 
   //Use te HOC as a descendant of Provider
   function ReduxCounter() {
@@ -117,7 +117,7 @@ function Counter({ value, increment, decrement  }: CounterProps) {
     
     <Provider store={store}> {/* Provider is imported from react redux, it will provide the store to ConnectedCounter*/}
       <ConnectedCounter /> {/* This is basically the Couter function , bcuz it has the same reference , almost!, so any proprs passed from here can be received on Counter Function. */}
-      <RestForCounter />
+      <ResetForCounter />
     </Provider>
   );
 }
