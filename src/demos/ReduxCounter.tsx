@@ -48,6 +48,8 @@ interface CounterProps {
 
 // Counter Component, presentational Component
 function Counter({ value, increment, decrement }: CounterProps) {
+
+  console.log("Component Re-rendered");
     return (
       <div className="card">
         <div className="card-header">
@@ -70,10 +72,17 @@ function Counter({ value, increment, decrement }: CounterProps) {
     );
   }
 
-
+  // This function will be called any time the store is updated, mapStateToProps will be called. it will be supplied with the new state returned by the Reducer . So we are hanlding it by setting the value property to the new State
+  //The return of the mapStateToProps determine whether the connected component will re-render
   const mapStateToProps = (state: {counter: number}) => ({
-    value: state.counter,
+    value: state.counter, // The re-render will happen, by performing a shallow comparison of this value , Notice why were are calling it a prop? bcuz value is supplied at the component creation
   });
+  //The results of mapStateToProps must be a plain object, which will be merged into the wrapped component’s props
+  // in the Above example, value is returned in a plain object, after its returned , it will be merged aka included in the Counter Compoonents props, so when re-rednering the component, it will be provided to the componenet's props
+  //E.G
+  //function Counter({ value, increment, decrement }: CounterProps)  , notice that the Counter component is expecting a n object that also includes the value , so the returned value is merged into that
+
+
   
   const mapDispatchToProps = (dispatch: Dispatch) => ({
     increment: () => dispatch(increment()),
