@@ -5,21 +5,7 @@ import { Provider, connect } from 'react-redux';
 const initialState = {
   counter: 0,
 };
-//action generators
-const increment = () => ({
-  type: 'INCREMENT',
-});
-//action generators
-const decrement = () => ({
-  type: 'DECREMENT',
-});
-//Action Generator with Payload
-const add = (amount: number) => ({
-  type: 'ADD',
-  payload: {
-    amount,
-  },
-});
+
 
 //Reducer , the engine of our store
 
@@ -31,6 +17,8 @@ const reducer = (state = { counter: 0 }, action: AnyAction) => {
       return { ...state, counter: state.counter - 1 };
     case 'ADD':
       return { ...state, counter: state.counter + action.payload.amount };
+    case 'RESET':
+      return {...state , counter:0};
     default:
       return state;
   }
@@ -44,10 +32,11 @@ interface CounterProps {
     value: number;
     increment: () => void;
     decrement: () => void;
+    reset: () => void;
   }
 
 // Counter Component, presentational Component
-function Counter({ value, increment, decrement }: CounterProps) {
+function Counter({ value, increment, decrement , reset }: CounterProps) {
 
   console.log("Component Re-rendered");
     return (
@@ -66,6 +55,10 @@ function Counter({ value, increment, decrement }: CounterProps) {
             <button className="button" onClick={increment}>
               Increment
             </button>
+
+            <button className="button" onClick={reset}>
+              Reset Counter
+            </button>
           </div>
         </div>
       </div>
@@ -81,21 +74,27 @@ function Counter({ value, increment, decrement }: CounterProps) {
   // in the Above example, value is returned in a plain object, after its returned , it will be merged aka included in the Counter Compoonents props, so when re-rednering the component, it will be provided to the componenet's props
   //E.G
   //function Counter({ value, increment, decrement }: CounterProps)  , notice that the Counter component is expecting a n object that also includes the value , so the returned value is merged into that
-
-
   
+
+  // mapDispatchToProps is given the dispatch of the your store object. Basically, these are also merged with the Props provided to the components .
+  // So the above return value and the properties in the below return object will be merged to form a prop. That prop will be provided to the component
   const mapDispatchToProps = (dispatch: Dispatch) => ({
-    increment: () => dispatch(increment()),
-    decrement: () => dispatch(decrement()),
+    increment: () => dispatch({type: 'INCREMENT'}),
+    decrement: () => dispatch({type: 'DECREMENT'}),
+    reset: () => dispatch({type: 'RESET'}),
   });
 
-// Create a higher-order component ready to plug into a store
-// Inversion of control
-  const ConnectedCounter = connect(mapStateToProps, mapDispatchToProps)(Counter);
+
+  // Summary: The return value of the mapStateToProp and mapDispatchToProps , will be merged to form a Prop object which will be passed to the component , then component will utilize it. Simple!
+
+  // Create a higher-order component ready to plug into a store
+  // Inversion of control
+  const ConnectedCounter = connect(mapStateToProps, mapDispatchToProps,)(Counter);
 
   //Use te HOC as a descendant of Provider
-function ReduxCounter() {
+  function ReduxCounter() {
   return (
+    
     <Provider store={store}> {/* Provider is imported from react redux, it will provide the store to ConnectedCounter*/}
       <ConnectedCounter /> {/* This is basically the Couter function , bcuz it has the same reference , almost!, so any proprs passed from here can be received on Counter Function. */}
     </Provider>
