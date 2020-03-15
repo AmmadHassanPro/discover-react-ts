@@ -32,11 +32,10 @@ interface CounterProps {
     value: number;
     increment: () => void;
     decrement: () => void;
-    reset: () => void;
   }
 
 // Counter Component, presentational Component
-function Counter({ value, increment, decrement , reset }: CounterProps) {
+function Counter({ value, increment, decrement  }: CounterProps) {
 
   console.log("Component Re-rendered");
     return (
@@ -55,15 +54,33 @@ function Counter({ value, increment, decrement , reset }: CounterProps) {
             <button className="button" onClick={increment}>
               Increment
             </button>
-
-            <button className="button" onClick={reset}>
-              Reset Counter
-            </button>
           </div>
         </div>
       </div>
     );
   }
+
+
+  interface RestCounterProps {
+    reset: () => void;
+  }
+
+
+  function CounterForReset({reset }: RestCounterProps) {
+
+    console.log("Component Re-rendered");
+      return (
+        <div className="card">
+          <div className="card-content">
+            <div className="buttons">
+                 <button className="button" onClick={reset}>
+                Reset Counter
+              </button>
+            </div>
+          </div>
+        </div>
+      );
+    }
 
   // This function will be called any time the store is updated, mapStateToProps will be called. it will be supplied with the new state returned by the Reducer . So we are hanlding it by setting the value property to the new State
   //The return of the mapStateToProps determine whether the connected component will re-render
@@ -81,7 +98,6 @@ function Counter({ value, increment, decrement , reset }: CounterProps) {
   const mapDispatchToProps = (dispatch: Dispatch) => ({
     increment: () => dispatch({type: 'INCREMENT'}),
     decrement: () => dispatch({type: 'DECREMENT'}),
-    reset: () => dispatch({type: 'RESET'}),
   });
 
 
@@ -91,12 +107,17 @@ function Counter({ value, increment, decrement , reset }: CounterProps) {
   // Inversion of control
   const ConnectedCounter = connect(mapStateToProps, mapDispatchToProps,)(Counter);
 
+  const mapResetDispatchToProps = (dispatch : Dispatch) => ({reset: () => dispatch({type: 'RESET'})});
+  // The first Paramter is provided as null, bcuz this component does not need to know when a state change is happened ,as this component has nothing to do with State
+  const RestForCounter = connect(null, mapResetDispatchToProps)(CounterForReset);
+
   //Use te HOC as a descendant of Provider
   function ReduxCounter() {
   return (
     
     <Provider store={store}> {/* Provider is imported from react redux, it will provide the store to ConnectedCounter*/}
       <ConnectedCounter /> {/* This is basically the Couter function , bcuz it has the same reference , almost!, so any proprs passed from here can be received on Counter Function. */}
+      <RestForCounter />
     </Provider>
   );
 }
